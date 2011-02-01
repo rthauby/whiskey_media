@@ -1,10 +1,10 @@
 module WhiskeyMedia
   
-  @wm_configuration = {}
-  @wm_url = nil
+  @configuration = {}
+  @api_key = nil
   
   class << self
-    
+      
     def load_configuration(file)
       return false unless File.exist?(file)
       @configuration = YAML.load(ERB.new(File.read(file)).result)
@@ -15,13 +15,8 @@ module WhiskeyMedia
     end
     
     def apply_configuration(config)
-      @wm_configuration = config
-      @wm_url = url_for config['host'], config['api_key']
-      puts @wm_url
-    end
-    
-    def url_for host_name, api_key
-      "http://#{host_name}/game/?api_key=#{api_key}&format=xml"
+      @api_key = config['api_key']
+      puts @api_key
     end
     
   end
