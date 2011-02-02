@@ -1,22 +1,24 @@
 module WhiskeyMedia
   
   @configuration = {}
-  @api_key = nil
   
   class << self
+    
+    attr_accessor :configuration
       
     def load_configuration(file)
       return false unless File.exist?(file)
-      @configuration = YAML.load(ERB.new(File.read(file)).result)
+      config = YAML.load(ERB.new(File.read(file)).result)
       if defined? RAILS_ENV
-        @configuration = @configuration[RAILS_ENV]
+        config = config[RAILS_ENV]
       end
-      apply_configuration(@configuration)
+      apply_configuration config
     end
     
     def apply_configuration(config)
-      @api_key = config['api_key']
-      puts @api_key
+      config.each_pair do |k,v|
+        @configuration[k.to_sym] = v
+      end
     end
     
   end

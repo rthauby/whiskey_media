@@ -2,8 +2,11 @@ module WhiskeyMedia
   
   class Games < Connector
     
-    def self.list
-      super "api.giantbomb.com","games"
+    HOST = "api.giantbomb.com"
+    RESOURCE = "games"
+    
+    def self.list(options={})
+      super HOST, RESOURCE, options
     end
     
   end
