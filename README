@@ -1,13 +1,31 @@
 WhiskeyMedia
 ============
 
-Introduction goes here.
+This plug in is an adapter for consuming the resources exposed by the Whiskey Media API. At the moment, they are only supporting two of their five sites with an API. The sites are:
+
+- giantbomb.com
+- comicvine.com
+
+These two happen to be the most interesting for me personally, but extending this plugin if/when they choose to expose their other sites should be very easy.
+
+This plugin creates hooks for all resources of the API and fetches them. optional parameters are allowed to filter, reduce payload of transaction, etc.
+
+
+API Documentation
+=================
+
+You can find clear examples of their API at {http://api.giantbomb.com/documentation/}[http://api.giantbomb.com/documentation/] and {http://api.comicvine.com/documentation/}[http://api.comicvine.com/documentation/]
 
 
 Example
 =======
 
-Example goes here.
+Usage is simple, some examples:
+
+ComicVine::Movies.list
+ComicVine::Characters.list
+ComicVine::Characters.list({:offset => 100})
+ComicVine::Movies.find_by_id(101)
 
 
-Copyright (c) 2011 [name of plugin creator], released under the MIT license
+Copyright (c) 2011 Rodrigo Thauby, released under the MIT license
