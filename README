@@ -14,7 +14,7 @@ This plugin creates hooks for all resources of the API and fetches them. optiona
 API Documentation
 =================
 
-You can find clear examples of their API at {http://api.giantbomb.com/documentation/}[http://api.giantbomb.com/documentation/] and {http://api.comicvine.com/documentation/}[http://api.comicvine.com/documentation/]
+You can find clear examples of their API at http://api.giantbomb.com/documentation/ and http://api.comicvine.com/documentation/
 
 
 Example
