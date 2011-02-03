@@ -9,9 +9,6 @@ module WhiskeyMedia
     def load_configuration(file)
       return false unless File.exist?(file)
       config = YAML.load(ERB.new(File.read(file)).result)
-      if defined? RAILS_ENV
-        config = config[RAILS_ENV]
-      end
       apply_configuration config
     end
     

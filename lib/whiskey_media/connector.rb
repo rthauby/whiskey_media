@@ -1,44 +1,48 @@
 module WhiskeyMedia
 
   class Connector
-    
-    def self.api_key
-      WhiskeyMedia.configuration[:api_key]
-    end
+
+    class << self
       
-    def self.url_for host, resource, id, options={}
-      "http://#{host}/#{resource}/#{id}/?api_key=#{api_key}&format=xml&" + options.to_query
+      def connect_and_parse url
+        file = connect url
+        parse file
+      end
+    
+      def parse file
+        Nokogiri::XML(file)
+      end
+    
+      def connect url
+        open(url,"User-Agent" => "Ruby/#{RUBY_VERSION}")
+      end
+    
+    end
+
+    attr_accessor :host, :api_key, :resource
+    
+    def initialize host, api_key, resource
+      @host = host
+      @api_key = api_key
+      @resource = resource
     end
     
-    def self.url_for_list host, resources, options={}
-      "http://#{host}/#{resources}/?api_key=#{api_key}&format=xml&" + options.to_query
+    def url options={}
+      "http://#{@host}/#{@resource}/?api_key=#{@api_key}&format=xml&" + options.to_query
     end
     
-    def self.get host, resource, id
-      url = url_for host, resource, id
-      xml = connect_and_parse url
+    def find_by_id options={}
+      url = url options
+      xml = self.class.connect_and_parse url
       xml.to_item
     end
     
-    def self.list host, resources, options={}
-      url = url_for_list host, resources, options
-      xml = connect_and_parse url
+    def list options={}
+      url = url options
+      xml = self.class.connect_and_parse url
       xml.to_collection
     end
-    
-    def self.connect_and_parse url
-      file = connect url
-      parse file
-    end
-    
-    def self.parse file
-      Nokogiri::XML(file)
-    end
-    
-    def self.connect url
-      open(url,"User-Agent" => "Ruby/#{RUBY_VERSION}")
-    end
-    
+
   end
   
 end

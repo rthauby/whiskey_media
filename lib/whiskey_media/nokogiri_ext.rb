@@ -2,14 +2,14 @@ class Nokogiri::XML::Node
   
   def to_collection
     results = []
-    self.css('results')[0].element_children.each do |node|
+    self.css('results').first.element_children.each do |node|
       results << node.get_values
     end
     results
   end
   
   def to_item
-    self.css('results')[0].get_values
+    [self.css('results').first.get_values]
   end
   
   def has_children?

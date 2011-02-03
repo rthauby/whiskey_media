@@ -1,12 +1,27 @@
 module WhiskeyMedia
   
-  class Games < Connector
+  class GiantBomb < Connector
     
-    HOST = "api.giantbomb.com"
-    RESOURCE = "games"
+    def initialize resource
+      super("api.giantbomb.com", WhiskeyMedia.configuration[:api_keys]['giantbomb'], resource)
+    end
     
-    def self.list(options={})
-      super HOST, RESOURCE, options
+  end
+  
+  class Games
+
+    class << self
+      
+      def find_by_id(id, options={})
+        connector = GiantBomb.new "game/#{id}"
+        connector.find_by_id options
+      end
+      
+      def list(options={})
+        connector = GiantBomb.new "games"
+        connector.list options
+      end
+      
     end
     
   end
