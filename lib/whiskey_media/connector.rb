@@ -22,6 +22,7 @@ module WhiskeyMedia
     attr_accessor :host, :api_key, :resource
     
     def initialize host, api_key, resource
+      puts "init:", host, api_key, resource
       @host = host
       @api_key = api_key
       @resource = resource
